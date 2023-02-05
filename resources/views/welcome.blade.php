@@ -3,7 +3,7 @@
 @section('title', 'Main')
 
 @section('content')
-    <h4 class="ms-3">Сортировка: @sortablelink('price', 'По цене'),   @sortablelink('created_at', 'По дате')</h4>
+    <h4 class="ms-3">Сортировка: @sortablelink('price', 'По цене'), @sortablelink('created_at', 'По дате')</h4>
     <div class="row mt-4">
         <div class="col-md-7 ms-3">
             @if($vapes->isEmpty())
@@ -12,16 +12,19 @@
             @foreach($vapes as $vape)
                 <article class="mb-3">
                     <p class="mb-1 h3"><strong>{{ $vape->title }}</strong></p>
-                   <p class="mb-0"><image width="200px" src="{{asset('/storage/images/vapes/' . $vape->image)}}"></image></p>
+                    <p class="mb-0">
+                        <image width="200px" src="{{asset('/storage/images/vapes/' . $vape->image)}}"></image>
+                    </p>
                     <p class="mb-0">Контактная ифнормация:</p>
                     <p class="mb-1">{{ $vape->contacts}}
                     <p class="mb-1">Цена: {{ $vape->price}}
-                    <br>
-                    <a class="text-decoration-none" href="{{route('showoffer', ['vape' => $vape->id])}}"><strong>Подробнее</strong></a>
-                    <br>
-                    @can('edit', $vape)
-                        <a class="text-decoration-none" href="{{route('editofferform', ['vape' => $vape->id])}}"><strong>Изменить</strong></a>
                         <br>
+                        <a class="text-decoration-none" href="{{route('showoffer', ['vape' => $vape->id])}}"><strong>Подробнее</strong></a>
+                        <br>
+                        @can('edit', $vape)
+                            <a class="text-decoration-none"
+                               href="{{route('editofferform', ['vape' => $vape->id])}}"><strong>Изменить</strong></a>
+                            <br>
                     @endcan
                     <form action="{{route('addfavorites', ['vape' => $vape->id])}}" method="post">
                         @csrf
@@ -71,8 +74,9 @@
                                 @endif
                             > {{ $brand->name }}
                         </div>
-                        <button class="btn btn-primary">Поиск</button>
                     @endforeach
+                    <button class="btn btn-primary">Поиск</button>
+
                 </form>
             </ul>
         </div>

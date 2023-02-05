@@ -8,14 +8,16 @@
         @csrf
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input value="{{old('email')}}" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="email">
+            <input value="{{old('email')}}" type="email" class="form-control @error('email') is-invalid @enderror"
+                   name="email" placeholder="email">
             @error('email')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Пароль</label>
-            <input value="{{old('password')}}" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="пароль">
+            <input value="{{old('password')}}" type="password"
+                   class="form-control @error('password') is-invalid @enderror" name="password" placeholder="пароль">
             @error('password')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror

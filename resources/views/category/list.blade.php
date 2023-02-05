@@ -20,22 +20,20 @@
                 <td>{{ $category->name }}</td>
                 <td>
                     <a class="text-decoration-none" href="{{route('showcategory', ['category' => $category->id])}}">Раскрыть</a>
-                    <td>
+                <td>
                     <a class="text-decoration-none" href="{{route('editcategoryform', ['category' => $category->id])}}">Изменить</a>
 
                 </td>
-                    <td>
-                        <form action="{{route('deletecategory', ['category' => $category->id])}}" method="post">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-danger">
-                                Удалить
-                            </button>
-                        </form>
-                    </td>
+                <td>
+                    <form action="{{route('deletecategory', ['category' => $category->id])}}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-danger">
+                            Удалить
+                        </button>
+                    </form>
+                </td>
             </tr>
         @endforeach
         </tbody>
     </table>
-    {{--    <div class="d-flex justify-content-center"></div>--}}
-    {{--    {!! $movies->links() !!}--}}
 @endsection

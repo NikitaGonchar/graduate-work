@@ -18,13 +18,15 @@ class BrandPolicy
     {
         //
     }
+
     public function create(User $user)
     {
         return $user->role === 'admin';
     }
 
 
-    public function view(User $user){
+    public function view(User $user)
+    {
         return $user->role === 'admin';
     }
 }

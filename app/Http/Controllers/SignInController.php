@@ -19,8 +19,10 @@ class SignInController extends Controller
     public function signIn(SignInRequest $request)
     {
         $credentials = $request->validated();
-
-        if (Auth::attempt($credentials)) {
+        $check = function ($user) {
+            return $user->email_verified_at !== null;
+        };
+        if (Auth::attemptWhen($credentials, $check)) {
             session()->flash('success', 'Авторизация прошла успешно!');
             return redirect(route('main'));
         }

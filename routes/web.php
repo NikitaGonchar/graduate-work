@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\MainController::class, 'main'])
+    ->middleware(['cookie-banner'])
     ->name('main');
 Route::get('/vapes', [\App\Http\Controllers\VapeController::class, 'view'])
     ->name('add');
@@ -33,6 +34,8 @@ Route::get('/favorites', [\App\Http\Controllers\MainController::class, 'favorite
     ->name('favorites');
 Route::post('/addfavorites/{vape}', [\App\Http\Controllers\MainController::class, 'addFavorites'])
     ->name('addfavorites');
+Route::post('/favorites/{favorite}/delete', [\App\Http\Controllers\MainController::class, 'deleteFavorite'])
+    ->name('deletefavorites');
 
 
 Route::get('/signup', [\App\Http\Controllers\SignUpController::class, 'signUpForm'])
@@ -45,6 +48,8 @@ Route::post('/signinform/signin', [\App\Http\Controllers\SignInController::class
     ->name('signin');
 Route::post('/logout', [\App\Http\Controllers\SignInController::class, 'logout'])
     ->name('logout');
+Route::get('/verify-email/{id}/{hash}', [\App\Http\Controllers\SignUpController::class, 'verifyEmail'])
+    ->name('verify.email');
 
 
 Route::get('/categories', [\App\Http\Controllers\CategoryController::class, 'view'])
@@ -61,7 +66,6 @@ Route::post('/categories/{category}/edit', [\App\Http\Controllers\CategoryContro
     ->name('editcategory');
 Route::get('/categories/list', [\App\Http\Controllers\CategoryController::class, 'list'])
     ->name('categorylist');
-
 
 
 Route::get('/brands', [\App\Http\Controllers\BrandController::class, 'view'])

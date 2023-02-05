@@ -27,11 +27,12 @@ class EditVape extends FormRequest
             'title' => ['required', 'min:1', 'max:255'],
             'description' => ['min:5'],
             'contacts' => ['required', 'min:1', 'max:255'],
+            'image' => ['required'],
             'price' => ['required', 'numeric', 'min:1'],
             'categories' => ['required', 'array', 'min:1'],
             'categories.*' => ['required', 'exists:categories,id'],
             'brands' => ['required', 'array', 'min:1'],
-            'brands.*' => ['required', 'exists:categories,id'],
+            'brands.*' => ['required', 'exists:brands,id'],
         ];
     }
 }

@@ -12,14 +12,17 @@ use Intervention\Image\Facades\Image;
 
 class VapeController extends Controller
 {
-    public function view(){
+    public function view()
+    {
         $categories = Category::all();
         $brands = Brand::all();
         return view('vapes.create', compact('categories', 'brands'));
     }
-    public function create(VapeRequest $request){
+
+    public function create(VapeRequest $request)
+    {
         $data = $request->validated();
-        if ($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $destination_path = 'public/images/vapes';
             $image = $request->file('image');
             $image_name = $image->getClientOriginalName();

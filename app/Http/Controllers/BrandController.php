@@ -15,11 +15,13 @@ use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
-    public function view(){
-
+    public function view()
+    {
         return view('brand.create');
     }
-    public function create(CreateBrand $request){
+
+    public function create(CreateBrand $request)
+    {
         $data = $request->validated();
         $brand = new Brand($data);
         $brand->save();
@@ -27,25 +29,35 @@ class BrandController extends Controller
         session()->flash('success', 'Бренд добавлен!');
         return redirect()->back();
     }
-    public function delete(Brand $brand){
+
+    public function delete(Brand $brand)
+    {
         $brand->delete();
         session()->flash('success', 'Бренд удален');
         return redirect()->back();
     }
-    public function show(Brand $brand){
+
+    public function show(Brand $brand)
+    {
         return view('brand.show', compact('brand'));
     }
-    public function edit(Brand $brand, EditBrand $request){
+
+    public function edit(Brand $brand, EditBrand $request)
+    {
         $data = $request->validated();
         $brand->fill($data);
         $brand->save();
         session()->flash('success', 'Бренд изменен');
         return redirect()->route('showbrand', ['brand' => $brand->id]);
     }
-    public function editForm(Brand $brand){
+
+    public function editForm(Brand $brand)
+    {
         return view('brand.edit', compact('brand'));
     }
-    public function list(){
+
+    public function list()
+    {
         $brands = Brand::all();
         return view('brand.list', ['brands' => $brands]);
     }

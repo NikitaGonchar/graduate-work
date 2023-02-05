@@ -25,8 +25,8 @@
         </form>
     </div>
     <ul style="align-items: center; text-align: center" class="navbar-nav mr-auto">
-    @if(!auth()->check())
-        <li>Для размещения объявления авторизируйтесь</li>
+        @if(!auth()->check())
+            <li>Для размещения объявления авторизируйтесь</li>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{route('signupform')}}">Регистрация</a>
             </li>

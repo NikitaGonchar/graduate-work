@@ -7,7 +7,8 @@
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Название бренда</label>
-            <input value="{{old('name')}}" type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="название" >
+            <input value="{{old('name')}}" type="text" class="form-control @error('name') is-invalid @enderror"
+                   name="name" placeholder="название">
             @error('name')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror

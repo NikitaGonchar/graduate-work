@@ -17,10 +17,11 @@ use Illuminate\Support\Facades\Storage;
 
 class MainController extends Controller
 {
-    public function main(Request $request){
+    public function main(Request $request)
+    {
         $query = Vape::sortable()
-        ->with('user', 'categories', 'brands')
-        ->latest();
+            ->with('user', 'categories', 'brands')
+            ->latest();
         if ($request->has('categories')) {
             $query->whereHas('categories', function ($q) use ($request) {
                 $q->whereIn('categories.id', $request->get('categories'));
@@ -44,18 +45,36 @@ class MainController extends Controller
             ->appends($request->query());
         return view('welcome', compact('vapes', 'categories', 'brands'));
     }
-    public function delete(Vape $vape){
+
+    public function delete(Vape $vape)
+    {
         $vape->delete();
         session()->flash('success', 'Объявление удалено');
         return redirect()->back();
     }
-    public function show(Vape $vape){
+
+    public function show(Vape $vape)
+    {
         $categories = Category::all();
         $brands = Brand::all();
         return view('vapes.show', compact('vape', 'categories', 'brands'));
     }
-    public function edit(Vape $vape, EditVape $request){
+
+    public function edit(Vape $vape, EditVape $request)
+    {
         $data = $request->validated();
+        if ($request->hasFile('image')) {
+            $destination_path = 'public/images/vapes';
+            if ($request->file('image') != '' && $request->file('image') != null) {
+                $file_old = $destination_path . $request->file('image');
+                unlink($file_old);
+            }
+            $file = $request->file('image');
+            $filename = $file->getClientOriginalName();
+            $request->file('image')->storeAs($destination_path, $filename);
+
+            $data['image'] = $filename;
+        }
         $vape->fill($data);
         $vape->categories()->sync($data['categories']);
         $vape->brands()->sync($data['brands']);
@@ -63,38 +82,41 @@ class MainController extends Controller
         session()->flash('success', 'Объявление обновлено');
         return redirect()->route('showoffer', ['vape' => $vape->id]);
     }
-    public function editForm(Vape $vape){
+
+    public function editForm(Vape $vape)
+    {
         $categories = Category::all();
         $brands = Brand::all();
         return view('vapes.edit', compact('vape', 'categories', 'brands'));
     }
-    public function userOffer(Request $request){
-       $user = $request->user();
-       return view('myoffers', compact('user'));
+
+    public function userOffer(Request $request)
+    {
+        $user = $request->user();
+        $vapes = $user->vapes()->paginate(1);
+        return view('myoffers', compact('vapes'));
     }
-    public function favorites(Request $request){
-    $favorites = Favorite::query()->where('user_id', $request->user()->id)->get();
-//        foreach ($favorites as $favorite){
-//            $vapes = $favorite->vapes;
-//        }
-      // $favorites = Favorite::query()->with('vape')->where('user_id', $request->user()->id);
+
+    public function favorites(Request $request)
+    {
+        $favorites = Favorite::query()->where('user_id', $request->user()->id)->paginate(1);
         return view('favorites', compact('favorites'));
     }
-    public function addFavorites(Request $request)
+
+    public function addFavorites(Request $request, Vape $vape)
     {
-//        $user = $request->user();
-//        $vape = $request->get('vape');
-//        $favorite = new Favorite();
-//        $favorite->user()->associate($user->id);
-//        $favorite->save();
-//        $favorite->vapes()->attach($vape);
-//        session()->flash('success', 'Объявление добавлено в избранное!');
-//        return redirect()->back();
         $favorite = new Favorite();
-        $favorite->vape_id = $request->get('vape');
+        $favorite->vape_id = $vape->id;
         $favorite->user_id = $request->user()->id;
         $favorite->save();
         session()->flash('success', 'Объявление добавлено в избранное');
+        return redirect()->back();
+    }
+
+    public function deleteFavorite(Favorite $favorite)
+    {
+        $favorite->delete();
+        session()->flash('success', 'Объявление удалено из избранного');
         return redirect()->back();
     }
 }

@@ -19,6 +19,7 @@ class VapePolicy
     {
         //
     }
+
     public function edit(User $user, Vape $vape)
     {
         return $user->id === $vape->user_id;
