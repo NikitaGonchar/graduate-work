@@ -49,9 +49,9 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($value);
     }
 
-    public function vapes()
+    public function adverts()
     {
-        return $this->hasMany(Vape::class);
+        return $this->hasMany(Advert::class);
     }
 
     public function favorites()

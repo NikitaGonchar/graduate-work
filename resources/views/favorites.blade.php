@@ -8,11 +8,11 @@
     @endif
     @foreach($favorites as $favorite)
         <div class="ms-3">
-            <h3>{{$favorite->vape->title}}</h3>
+            <h3>{{$favorite->advert->title}}</h3>
             <p class="mb-2">
-                <image width="300px" src="{{asset('/storage/images/vapes/' . $favorite->vape->image)}}"></image>
+                <image width="300px" src="{{asset('/storage/images/vapes/' . $favorite->advert->image)}}"></image>
             </p>
-            <a class="text-decoration-none" href="{{route('showoffer', ['vape' => $favorite->vape->id])}}"><strong>Подробнее</strong></a>
+            <a class="text-decoration-none" href="{{route('showoffer', ['advert' => $favorite->advert->id])}}"><strong>Подробнее</strong></a>
             <br>
             <form class="mt-2" action="{{route('deletefavorites', ['favorite' => $favorite->id])}}" method="post">
                 @csrf

@@ -12,11 +12,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('vape_categories', function (Blueprint $table) {
+        Schema::create('advert_categories', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('vape_id');
-            $table->foreign('vape_id')->references('id')->on('vapes')->cascadeOnDelete();
+            $table->unsignedBigInteger('advert_id');
+            $table->foreign('advert_id')->references('id')->on('adverts')->cascadeOnDelete();
 
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete();
@@ -30,6 +30,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('vape_categories');
+        Schema::dropIfExists('advert_categories');
     }
 };

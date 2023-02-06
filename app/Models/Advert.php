@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-class Vape extends Model
+class Advert extends Model
 {
     use Sortable;
 
@@ -25,12 +25,12 @@ class Vape extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'vape_categories');
+        return $this->belongsToMany(Category::class, 'advert_categories');
     }
 
     public function brands()
     {
-        return $this->belongsToMany(Brand::class, 'vape_brands');
+        return $this->belongsToMany(Brand::class, 'advert_brands');
     }
 
     public function user()
@@ -40,7 +40,7 @@ class Vape extends Model
 
     public function favorites()
     {
-        return $this->belongsToMany(Favorite::class, 'favorite_vapes');
+        return $this->belongsToMany(Favorite::class, 'favorite_adverts');
     }
 }
 

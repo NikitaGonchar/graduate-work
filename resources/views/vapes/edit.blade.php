@@ -3,11 +3,11 @@
 @section('title', 'Edit offer')
 
 @section('content')
-    <form class="me-5 ms-3" action="{{route('editoffer', ['vape' => $vape->id])}}" method="post">
+    <form class="me-5 ms-3" action="{{route('editoffer', ['advert' => $advert->id])}}" method="post">
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Название товара</label>
-            <input value="{{old('title', $vape->title)}}" type="text"
+            <input value="{{old('title', $advert->title)}}" type="text"
                    class="form-control @error('title') is-invalid @enderror" name="title" placeholder="название">
             @error('title')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -15,7 +15,7 @@
         </div>
         <div class="mb-3">
             <label for="contacts" class="form-label">Контактные данные</label>
-            <input value="{{old('contacts', $vape->contacts)}}" type="text"
+            <input value="{{old('contacts', $advert->contacts)}}" type="text"
                    class="form-control @error('contacts') is-invalid @enderror" name="contacts" placeholder="название">
             @error('contacts')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -23,7 +23,7 @@
         </div>
         <div class="mb-3">
             <label for="price" class="form-label">Цена</label>
-            <input value="{{old('price', $vape->price)}}" type="number"
+            <input value="{{old('price', $advert->price)}}" type="number"
                    class="form-control @error('price') is-invalid @enderror" name="price" placeholder="цена">
             @error('price')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -32,7 +32,7 @@
         <div class="mb-3">
             <label for="description" class="form-label">Описание товара</label>
             <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="3"
-                      placeholder="описание">{{ old('description', $vape->description) }}</textarea>
+                      placeholder="описание">{{ old('description', $advert->description) }}</textarea>
             @error('description')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror

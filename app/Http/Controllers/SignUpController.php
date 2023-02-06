@@ -24,6 +24,7 @@ class SignUpController extends Controller
         session()->flash('success', 'Пользователь зарегистрирован');
         return redirect()->route('main');
     }
+
     public function verifyEmail(string $id, string $hash, Request $request)
     {
         if (!$request->hasValidSignature()) {

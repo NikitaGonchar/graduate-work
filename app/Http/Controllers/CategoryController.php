@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\EditCategory;
-use App\Http\Requests\EditVape;
-use App\Http\Requests\VapeRequest;
+use App\Http\Requests\EditAdvert;
+use App\Http\Requests\AdvertRequest;
 use App\Models\Category;
-use App\Models\Vape;
+use App\Models\Advert;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller

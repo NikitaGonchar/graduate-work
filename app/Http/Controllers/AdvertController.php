@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\VapeRequest;
+use App\Http\Requests\AdvertRequest;
 use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Vape;
+use App\Models\Advert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
-class VapeController extends Controller
+class AdvertController extends Controller
 {
     public function view()
     {
@@ -19,7 +19,7 @@ class VapeController extends Controller
         return view('vapes.create', compact('categories', 'brands'));
     }
 
-    public function create(VapeRequest $request)
+    public function create(AdvertRequest $request)
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
@@ -30,12 +30,12 @@ class VapeController extends Controller
 
             $data['image'] = $image_name;
         }
-        $vape = new Vape($data);
+        $advert = new Advert($data);
         $user = $request->user();
-        $vape->user()->associate($user);
-        $vape->save();
-        $vape->categories()->attach($data['categories']);
-        $vape->brands()->attach($data['brands']);
+        $advert->user()->associate($user);
+        $advert->save();
+        $advert->categories()->attach($data['categories']);
+        $advert->brands()->attach($data['brands']);
         session()->flash('success', 'Объявление добавлено!');
         return redirect()->back();
     }

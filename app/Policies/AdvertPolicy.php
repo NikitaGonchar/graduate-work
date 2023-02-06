@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Vape;
+use App\Models\Advert;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class VapePolicy
+class AdvertPolicy
 {
     use HandlesAuthorization;
 
@@ -20,13 +20,13 @@ class VapePolicy
         //
     }
 
-    public function edit(User $user, Vape $vape)
+    public function edit(User $user, Advert $advert)
     {
-        return $user->id === $vape->user_id;
+        return $user->id === $advert->user_id;
     }
 
-    public function delete(User $user, Vape $vape)
+    public function delete(User $user, Advert $advert)
     {
-        return $user->id === $vape->user_id or $user->role === 'admin';
+        return $user->id === $advert->user_id or $user->role === 'admin';
     }
 }

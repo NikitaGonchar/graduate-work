@@ -5,10 +5,10 @@ namespace App\Providers;
 // use Illuminate\Support\Facades\Gate;
 use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Vape;
+use App\Models\Advert;
 use App\Policies\BrandPolicy;
 use App\Policies\CategoryPolicy;
-use App\Policies\VapePolicy;
+use App\Policies\AdvertPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -19,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-       Vape::class => VapePolicy::class,
+       Advert::class => AdvertPolicy::class,
         Brand::class => BrandPolicy::class,
         Category::class => CategoryPolicy::class,
     ];

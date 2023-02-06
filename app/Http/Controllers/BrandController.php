@@ -6,11 +6,11 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\CreateBrand;
 use App\Http\Requests\EditBrand;
 use App\Http\Requests\EditCategory;
-use App\Http\Requests\EditVape;
-use App\Http\Requests\VapeRequest;
+use App\Http\Requests\EditAdvert;
+use App\Http\Requests\AdvertRequest;
 use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Vape;
+use App\Models\Advert;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller

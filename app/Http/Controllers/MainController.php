@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EditVape;
-use App\Http\Requests\VapeRequest;
+use App\Http\Requests\EditAdvert;
+use App\Http\Requests\AdvertRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Favorite;
 use App\Models\User;
-use App\Models\Vape;
+use App\Models\Advert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +19,7 @@ class MainController extends Controller
 {
     public function main(Request $request)
     {
-        $query = Vape::sortable()
+        $query = Advert::sortable()
             ->with('user', 'categories', 'brands')
             ->latest();
         if ($request->has('categories')) {
@@ -40,27 +40,27 @@ class MainController extends Controller
         }
         $categories = Category::all();
         $brands = Brand::all();
-        $vapes = $query
+        $adverts = $query
             ->paginate(2)
             ->appends($request->query());
-        return view('welcome', compact('vapes', 'categories', 'brands'));
+        return view('welcome', compact('adverts', 'categories', 'brands'));
     }
 
-    public function delete(Vape $vape)
+    public function delete(Advert $advert)
     {
-        $vape->delete();
+        $advert->delete();
         session()->flash('success', 'Объявление удалено');
         return redirect()->back();
     }
 
-    public function show(Vape $vape)
+    public function show(Advert $advert)
     {
         $categories = Category::all();
         $brands = Brand::all();
-        return view('vapes.show', compact('vape', 'categories', 'brands'));
+        return view('vapes.show', compact('advert', 'categories', 'brands'));
     }
 
-    public function edit(Vape $vape, EditVape $request)
+    public function edit(Advert $advert, EditAdvert $request)
     {
         $data = $request->validated();
         if ($request->hasFile('image')) {
@@ -75,26 +75,26 @@ class MainController extends Controller
 
             $data['image'] = $filename;
         }
-        $vape->fill($data);
-        $vape->categories()->sync($data['categories']);
-        $vape->brands()->sync($data['brands']);
-        $vape->save();
+        $advert->fill($data);
+        $advert->categories()->sync($data['categories']);
+        $advert->brands()->sync($data['brands']);
+        $advert->save();
         session()->flash('success', 'Объявление обновлено');
-        return redirect()->route('showoffer', ['vape' => $vape->id]);
+        return redirect()->route('showoffer', ['advert' => $advert->id]);
     }
 
-    public function editForm(Vape $vape)
+    public function editForm(Advert $advert)
     {
         $categories = Category::all();
         $brands = Brand::all();
-        return view('vapes.edit', compact('vape', 'categories', 'brands'));
+        return view('vapes.edit', compact('advert', 'categories', 'brands'));
     }
 
     public function userOffer(Request $request)
     {
         $user = $request->user();
-        $vapes = $user->vapes()->paginate(1);
-        return view('myoffers', compact('vapes'));
+        $adverts = $user->adverts()->paginate(1);
+        return view('myoffers', compact('adverts'));
     }
 
     public function favorites(Request $request)
@@ -103,10 +103,10 @@ class MainController extends Controller
         return view('favorites', compact('favorites'));
     }
 
-    public function addFavorites(Request $request, Vape $vape)
+    public function addFavorites(Request $request, Advert $advert)
     {
         $favorite = new Favorite();
-        $favorite->vape_id = $vape->id;
+        $favorite->advert_id = $advert->id;
         $favorite->user_id = $request->user()->id;
         $favorite->save();
         session()->flash('success', 'Объявление добавлено в избранное');

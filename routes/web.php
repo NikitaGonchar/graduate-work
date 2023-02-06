@@ -16,23 +16,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\MainController::class, 'main'])
     ->middleware(['cookie-banner'])
     ->name('main');
-Route::get('/vapes', [\App\Http\Controllers\VapeController::class, 'view'])
+Route::get('/vapes', [\App\Http\Controllers\AdvertController::class, 'view'])
     ->name('add');
-Route::post('/vapes/create', [\App\Http\Controllers\VapeController::class, 'create'])
+Route::post('/vapes/create', [\App\Http\Controllers\AdvertController::class, 'create'])
     ->name('createoffer');
-Route::post('/vapes/{vape}/delete', [\App\Http\Controllers\MainController::class, 'delete'])
+Route::post('/vapes/{advert}/delete', [\App\Http\Controllers\MainController::class, 'delete'])
     ->name('deleteoffer');
-Route::get('/vapes/{vape}/show', [\App\Http\Controllers\MainController::class, 'show'])
+Route::get('/vapes/{advert}/show', [\App\Http\Controllers\MainController::class, 'show'])
     ->name('showoffer');
-Route::get('/vapes/{vape}/editform', [\App\Http\Controllers\MainController::class, 'editForm'])
-    ->name('editofferform')->middleware('can:edit,vape');
-Route::post('/vapes/{vape}/edit', [\App\Http\Controllers\MainController::class, 'edit'])
-    ->name('editoffer')->middleware('can:edit,vape');
+Route::get('/vapes/{advert}/editform', [\App\Http\Controllers\MainController::class, 'editForm'])
+    ->name('editofferform')->middleware('can:edit,advert');
+Route::post('/vapes/{advert}/edit', [\App\Http\Controllers\MainController::class, 'edit'])
+    ->name('editoffer')->middleware('can:edit,advert');
 Route::get('/vapes/myoffers', [\App\Http\Controllers\MainController::class, 'userOffer'])
     ->name('myoffers');
 Route::get('/favorites', [\App\Http\Controllers\MainController::class, 'favorites'])
     ->name('favorites');
-Route::post('/addfavorites/{vape}', [\App\Http\Controllers\MainController::class, 'addFavorites'])
+Route::post('/addfavorites/{advert}', [\App\Http\Controllers\MainController::class, 'addFavorites'])
     ->name('addfavorites');
 Route::post('/favorites/{favorite}/delete', [\App\Http\Controllers\MainController::class, 'deleteFavorite'])
     ->name('deletefavorites');
